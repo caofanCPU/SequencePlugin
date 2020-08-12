@@ -1,11 +1,14 @@
 package org.intellij.sequencer;
 
+import com.intellij.lang.java.JavaLanguage;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiMethod;
 import com.intellij.util.ui.JBUI;
 import org.intellij.sequencer.generator.SequenceParams;
 import org.intellij.sequencer.generator.filters.NoConstructorsFilter;
@@ -16,6 +19,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+
+//import org.jetbrains.kotlin.idea.KotlinLanguage;
+//import org.jetbrains.kotlin.psi.KtFunction;
 
 public class ShowSequenceAction extends AnAction {
     private int _callDepth = 5;
@@ -32,15 +38,29 @@ public class ShowSequenceAction extends AnAction {
         super.update(event);
 
         Presentation presentation = event.getPresentation();
-        SequenceService plugin = getPlugin(event);
-        presentation.setEnabled(plugin != null && plugin.isInsideAMethod());
+
+        PsiElement psiElement = event.getData(CommonDataKeys.PSI_ELEMENT);
+        presentation.setEnabled(isEnabled(psiElement));
+
+    }
+
+    private boolean isEnabled(PsiElement psiElement) {
+        return psiElement != null
+                && (psiElement.getLanguage().is(JavaLanguage.INSTANCE)
+                && psiElement instanceof PsiMethod
+                /*|| psiElement.getLanguage().is(KotlinLanguage.INSTANCE)
+                && psiElement instanceof KtFunction*/);
     }
 
     public void actionPerformed(@NotNull AnActionEvent event) {
-        SequenceService plugin = getPlugin(event);
-        OptionsDialogWrapper dialogWrapper = new OptionsDialogWrapper(getProject(event));
+        Project project = event.getProject();
+        if (project == null) return;
+
+        SequenceService plugin = project.getService(SequenceService.class);
+
+        OptionsDialogWrapper dialogWrapper = new OptionsDialogWrapper(project);
         dialogWrapper.show();
-        if(dialogWrapper.isOK()) {
+        if (dialogWrapper.isOK()) {
             _callDepth = dialogWrapper.getCallStackDepth();
             _projectClassesOnly = dialogWrapper.isProjectClassesOnly();
             _noGetterSetters = dialogWrapper.isNoGetterSetters();
@@ -56,24 +76,10 @@ public class ShowSequenceAction extends AnAction {
             params.getMethodFilter().addFilter(new NoPrivateMethodsFilter(_noPrivateMethods));
             params.getMethodFilter().addFilter(new NoConstructorsFilter(_noConstructors));
             if (plugin != null) {
-                plugin.showSequence(params);
+                PsiElement psiElement = event.getData(CommonDataKeys.PSI_ELEMENT);
+                plugin.showSequence(params, psiElement);
             }
         }
-    }
-
-    private SequenceService getPlugin(AnActionEvent event) {
-        Project project = getProject(event);
-        if(project == null)
-            return null;
-        return getPlugin(project);
-    }
-
-    private SequenceService getPlugin(Project project) {
-        return project.getService(SequenceService.class);
-    }
-
-    private Project getProject(AnActionEvent event) {
-        return event.getData(CommonDataKeys.PROJECT);
     }
 
     private class DialogPanel extends JPanel {

@@ -21,16 +21,20 @@ The original version SequencePlugin come from ksibilev@yahoo.com.</p>
 ]]></description>
     <version>1.2.4</version>
     <vendor>fanhuagang@gmail.com</vendor>
-    <idea-version since-build="141.1"/>
+    <idea-version since-build="201.5656"/>
 
     <depends>com.intellij.modules.platform</depends>
 
     <depends>com.intellij.modules.java</depends>
 
-    <depends>com.intellij.java</depends>
-
     <change-notes><![CDATA[
         <dl>
+        <dt>2.0.3</dt>
+        <dd>Fix NPE issue when click the diagram load from .sdt file.</dd>
+        <dt>2.0.2</dt>
+        <dd>Add save to file feature, you can save diagram to `*.sdt` file.
+Load `.sdt` file to view the graph.
+Merged pull request #58 and now you can add object color overlay.</dd>
         <dt>2.0.1</dt>
         <dd>#47 Filled arrows for synchronous messages. Refine Method Info Tips.</dd>
         <dt>2.0</dt>
@@ -92,7 +96,12 @@ The original version SequencePlugin come from ksibilev@yahoo.com.</p>
                                  id="Settings.Sequence.Configuration"
                                  instance="org.intellij.sequencer.config.ConfigurationOptions"/>
         <applicationService serviceImplementation="org.intellij.sequencer.config.Configuration"/>
+        <toolWindow id="Sequence Diagram" icon="SequencePluginIcons.SEQUENCE_ICON_13" anchor="bottom"
+                    factoryClass="org.intellij.sequencer.SequenceToolWindowsFactory" canCloseContents="true"/>
+
         <projectService serviceInterface="org.intellij.sequencer.SequenceService"
                         serviceImplementation="org.intellij.sequencer.impl.SequenceServiceImpl"/>
+
+
     </extensions>
 </idea-plugin>
