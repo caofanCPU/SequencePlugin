@@ -5,7 +5,8 @@ plugins {
 }
 
 intellij {
-    version '2020.1'
+//    version '2020.1'
+    localPath '/Users/D8GER/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/201.8743.12/IntelliJ IDEA.app'
     pluginName 'SequenceDiagram'
     plugins = ['java']
     updateSinceUntilBuild true
@@ -18,9 +19,9 @@ patchPluginXml {
     untilBuild '202.*'
 }
 
-publishPlugin {
-    token intellijPublishToken
-}
+//publishPlugin {
+//    token intellijPublishToken
+//}
 
 group 'vanstudio'
 version '2.0.3'
