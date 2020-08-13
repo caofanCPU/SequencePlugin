@@ -40,13 +40,13 @@ public class ColorMapEntry {
     private Predicate<String> matcher;
 
     public boolean matches(String fullName) {
-        if(matcher==null) {
+        if (fullName == null) {
+            return false;
+        }
+        if (matcher == null) {
             // simply pattern to actual regex
             String regex = getRegex().replace(".", "\\.").replace("*", ".*");
-            matcher = Pattern.compile(regex).asMatchPredicate();
-        }
-        if(fullName==null) {
-            return false;
+            matcher = item -> Pattern.compile(regex).matcher(item).matches();
         }
         return matcher.test(fullName);
     }
