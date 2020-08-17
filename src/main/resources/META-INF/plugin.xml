@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>SequenceDiagram</id>
-    <name>SequenceDiagram</name>
+    <name>D8gerSequence</name>
     <description><![CDATA[
 <h3>SequenceDiagram for IntelliJ IDEA</h3>
 <a href="http://vanco.github.io/SequencePlugin">http://vanco.github.io/SequencePlugin.</a>
@@ -19,8 +19,7 @@ Simple Sequence Diagram Generator. fixed version of SequencePlugin , work from 1
 The original version SequencePlugin come from ksibilev@yahoo.com.</p>
 
 ]]></description>
-    <version>1.2.4</version>
-    <vendor>fanhuagang@gmail.com</vendor>
+    <vendor>xyb5to0ZCY@gmail.com</vendor>
     <idea-version since-build="201.5656"/>
 
     <depends>com.intellij.modules.platform</depends>
@@ -84,7 +83,7 @@ Merged pull request #58 and now you can add object color overlay.</dd>
     <actions>
         <action id="SequencePlugin.ShowSequenceDiagram" class="org.intellij.sequencer.ShowSequenceAction"
                 icon="SequencePluginIcons.SEQUENCE_ICON"
-                text="Sequence Diagram..." description="Generate sequence diagram of the current method">
+                text="D8GER Sequence..." description="Generate sequence diagram of the current method">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
@@ -92,11 +91,11 @@ Merged pull request #58 and now you can add object color overlay.</dd>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <applicationConfigurable groupId="tools"
+        <applicationConfigurable groupId="default"
                                  id="Settings.Sequence.Configuration"
                                  instance="org.intellij.sequencer.config.ConfigurationOptions"/>
         <applicationService serviceImplementation="org.intellij.sequencer.config.Configuration"/>
-        <toolWindow id="Sequence Diagram" icon="SequencePluginIcons.SEQUENCE_ICON_13" anchor="bottom"
+        <toolWindow id="D8ger Sequence" icon="SequencePluginIcons.SEQUENCE_ICON_13" anchor="bottom"
                     factoryClass="org.intellij.sequencer.SequenceToolWindowsFactory" canCloseContents="true"/>
 
         <projectService serviceInterface="org.intellij.sequencer.SequenceService"

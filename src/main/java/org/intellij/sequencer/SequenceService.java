@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * Created by van on 2020/2/23.
  */
 public interface SequenceService {
-    String PLUGIN_NAME = "Sequence Diagram";
+    String PLUGIN_NAME = "D8ger Sequence";
 
     static SequenceService getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, SequenceService.class);

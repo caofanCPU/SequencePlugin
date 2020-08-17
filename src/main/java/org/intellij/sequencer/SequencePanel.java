@@ -278,7 +278,7 @@ public class SequencePanel extends JPanel {
 
     private class LoadAction extends AnAction {
         public LoadAction() {
-            super("Open Diagram", "Open SequenceDiagram text (.sdt) file", SequencePluginIcons.EXPORT_TEXT_ICON);
+            super("Open Diagram", "Open D8gerSequence text (.sdt) file", SequencePluginIcons.EXPORT_TEXT_ICON);
         }
 
         @Override
@@ -292,7 +292,7 @@ public class SequencePanel extends JPanel {
                 }
 
                 public String getDescription() {
-                    return "SequenceDiagram (.sdt) File";
+                    return "D8gerSequence (.sdt) File";
                 }
             });
             int returnVal = chooser.showOpenDialog(SequencePanel.this);
@@ -339,7 +339,7 @@ public class SequencePanel extends JPanel {
                 }
 
                 public String getDescription() {
-                    return "SequenceDiagram (.sdt) File";
+                    return "D8gerSequence (.sdt) File";
                 }
             });
             try {
