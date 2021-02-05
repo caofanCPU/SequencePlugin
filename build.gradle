@@ -4,12 +4,21 @@ plugins {
     id "org.jetbrains.intellij" version "0.4.21"
 }
 
+// 自定义task跑代码
+task D8ENV {
+    println('帝八哥正在编译插件....')
+//    println "$System.env.IDEA_HOME"
+    println("IDEA安装环境目录: " + System.getenv("IDEA_HOME"))
+    println("更新IDEA后, 别忘修改变量\$IDEA_HOME")
+}
+
+
 intellij {
 //    version '2020.1'
-    localPath '/Users/D8GER/Library/Application Support/JetBrains/Toolbox/apps/IDEA-U/ch-0/201.8743.12/IntelliJ IDEA.app'
+    localPath System.getenv("IDEA_HOME")
     pluginName 'SequenceDiagram'
     plugins = ['java']
-    updateSinceUntilBuild true
+    updateSinceUntilBuild false
     sandboxDirectory = "${project.rootDir}/.sandbox"
     jreRepo 'https://jetbrains.bintray.com/intellij-jbr'
 }
